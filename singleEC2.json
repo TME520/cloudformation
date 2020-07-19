@@ -77,7 +77,21 @@
               ]
             }
           ]
-        }
+        },
+        "Tags": [
+          {
+            "Key" : "created_by",
+            "Value" : "TME520"
+          },
+          {
+            "Key" : "expiry",
+            "Value" : "never"
+          },
+          {
+            "Key" : "purpose",
+            "Value" : "Runs tests for self-training."
+          }
+        ]
       }
     },
     "InstanceSecurityGroup": {

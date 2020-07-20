@@ -80,16 +80,20 @@
         },
         "Tags": [
           {
-            "Key" : "created_by",
-            "Value" : "TME520"
+            "Key": "created_by",
+            "Value": "TME520"
           },
           {
-            "Key" : "expiry",
-            "Value" : "never"
+            "Key": "expiry",
+            "Value": "never"
           },
           {
-            "Key" : "purpose",
-            "Value" : "Runs tests for self-training."
+            "Key": "purpose",
+            "Value": "Runs tests for self-training."
+          },
+          {
+            "Key": "stack",
+            "Value": { "Ref": "AWS::StackName" }
           }
         ]
       }
@@ -106,6 +110,24 @@
             "CidrIp": {
               "Ref": "SSHLocation"
             }
+          }
+        ],
+        "Tags": [
+          {
+            "Key" : "created_by",
+            "Value" : "TME520"
+          },
+          {
+            "Key" : "expiry",
+            "Value" : "never"
+          },
+          {
+            "Key" : "purpose",
+            "Value" : "Runs tests for self-training."
+          },
+          {
+            "Key": "stack",
+            "Value": { "Ref": "AWS::StackName" }
           }
         ]
       }

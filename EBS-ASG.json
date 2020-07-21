@@ -84,7 +84,12 @@
           "KeyName": { "Ref": "KeyName" },
           "InstanceType": { "Ref": "InstanceType" },
           "Monitoring":{"Enabled":false},
-          "SecurityGroupIds":[{ "Ref": "InstanceSecurityGroup" }]
+          "SecurityGroupIds":[{
+            "Fn::GetAtt": [
+              "InstanceSecurityGroup",
+              "GroupId"
+            ]
+          }]
         }
       }
     },

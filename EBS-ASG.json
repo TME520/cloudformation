@@ -97,6 +97,7 @@
       "Type":"AWS::AutoScaling::AutoScalingGroup",
       "Properties":{
         "AutoScalingGroupName":"myASG",
+        "AvailabilityZones": [ "ap-southeast-2a", "ap-southeast-2b", "ap-southeast-2c" ],
         "MinSize":2,
         "MaxSize":2,
         "DesiredCapacity":2,

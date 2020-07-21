@@ -142,7 +142,7 @@
       "Properties" : {
         "HostedZoneName": { "Ref": "HostedZoneName" },
         "Comment": "DNS name for my instance",
-        "Name" : { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, { "Ref": "HostedZoneName" } ] ] },
+        "Name" : { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
         "TTL" : "900",
         "Type" : "CNAME",
         "ResourceRecords": [
@@ -194,7 +194,7 @@
     "RecordSetName": {
       "Description": "The DNS entry pointing to the EC2 instance.",
       "Value": {
-        "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, { "Ref": "HostedZoneName" } ] ]
+        "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ]
       }
     }
   }

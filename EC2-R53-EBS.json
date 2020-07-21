@@ -161,7 +161,7 @@
         "Properties" : {
            "Size" : "4",
            "Encrypted" : "false",
-           "AvailabilityZone" : "ap-southeast-2",
+           "AvailabilityZone" : { "Ref": "AWS::Region" },
            "Tags" : [
             {
               "Key" : "created_by",

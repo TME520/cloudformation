@@ -100,12 +100,6 @@
             "Key": "stack",
             "Value": { "Ref": "AWS::StackName" }
           }
-        ],
-        "Volumes": [
-          {
-            "Device" : "/dev/sdf",
-            "VolumeId" : { "Ref": "EBSVolume" }
-          }
         ]
       }
     },
@@ -161,6 +155,7 @@
         "Properties" : {
            "Size" : "4",
            "Encrypted" : "false",
+           "AvailabilityZone" : { "Fn::GetAtt" : [ "EC2Instance", "AvailabilityZone" ] },
            "Tags" : [
             {
               "Key" : "created_by",
@@ -181,7 +176,15 @@
           ]
         },
         "DeletionPolicy" : "Delete"
-     }
+      },
+      "MountPoint" : {
+      "Type" : "AWS::EC2::VolumeAttachment",
+      "Properties" : {
+        "InstanceId" : { "Ref" : "EC2Instance" },
+        "VolumeId"  : { "Ref" : "EBSVolume" },
+        "Device" : "/dev/sdh"
+      }
+    }
   },
   "Outputs": {
     "InstanceId": {

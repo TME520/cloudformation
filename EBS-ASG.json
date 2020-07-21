@@ -1,0 +1,147 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Create an Amazon ASG and one EBS volume.",
+  "Parameters": {
+    "KeyName": {
+      "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instance",
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "Default": "ec2key",
+      "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+    },
+    "InstanceType": {
+      "Description": "WebServer EC2 instance type",
+      "Type": "String",
+      "Default": "t2.micro",
+      "AllowedValues": [
+        "t2.micro"
+      ],
+      "ConstraintDescription": "must be a valid EC2 instance type."
+    },
+    "SSHLocation": {
+      "Description": "The IP address range that can be used to SSH to the EC2 instances",
+      "Type": "String",
+      "MinLength": "9",
+      "MaxLength": "18",
+      "Default": "203.129.0.0/16",
+      "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+      "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
+    }
+  },
+  "Mappings": {
+    "AWSInstanceType2Arch": {
+      "t2.micro": {
+        "Arch": "HVM64"
+      }
+    },
+    "AWSInstanceType2NATArch": {
+      "t2.micro": {
+        "Arch": "NATHVM64"
+      }
+    },
+    "AWSRegionArch2AMI": {
+      "ap-southeast-2": {
+        "PV64": "ami-63351d00",
+        "HVM64": "ami-dc361ebf",
+        "HVMG2": "ami-0ad2db69"
+      }
+    }
+  },
+  "Resources": {
+    "myLaunchTemplate":{
+      "Type":"AWS::EC2::LaunchTemplate",
+      "Properties":{
+        "LaunchTemplateName":{"Fn::Sub":"${AWS::StackName}-launch-template"},
+        "LaunchTemplateData":{
+          "BlockDeviceMappings":[{
+            "Ebs":{
+              "VolumeSize":"22",
+              "VolumeType":"gp2",
+              "DeleteOnTermination": true,
+              "Encrypted": false
+            },
+            "DeviceName":"/dev/sdh"
+          }],
+          "CreditSpecification":{
+            "CpuCredits":"unlimited"
+          },
+          "ImageId":{
+            "Fn::FindInMap": [
+              "AWSRegionArch2AMI",
+              {
+                "Ref": "AWS::Region"
+              },
+              {
+                "Fn::FindInMap": [
+                  "AWSInstanceType2Arch",
+                  {
+                    "Ref": "InstanceType"
+                  },
+                  "Arch"
+                ]
+              }
+            ]
+          },
+          "KeyName": { "Ref": "KeyName" },
+          "InstanceType": { "Ref": "InstanceType" },
+          "Monitoring":{"Enabled":false},
+          "SecurityGroupIds":[{ "Ref": "InstanceSecurityGroup" }]
+        }
+      }
+    },
+    "myASG":{
+      "Type":"AWS::AutoScaling::AutoScalingGroup",
+      "Properties":{
+        "AutoScalingGroupName":"myASG",
+        "MinSize":2,
+        "MaxSize":2,
+        "DesiredCapacity":2,
+        "HealthCheckGracePeriod":300,
+        "LaunchTemplate":{
+          "LaunchTemplateId":{
+            "Ref":"myLaunchTemplate"
+          },
+          "Version":{
+            "Fn::GetAtt":[
+              "myLaunchTemplate",
+              "LatestVersionNumber"
+            ]
+          }
+        }
+      }
+    },
+    "InstanceSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Enable SSH access via port 22",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "22",
+            "ToPort": "22",
+            "CidrIp": {
+              "Ref": "SSHLocation"
+            }
+          }
+        ],
+        "Tags": [
+          {
+            "Key" : "created_by",
+            "Value" : "TME520"
+          },
+          {
+            "Key" : "expiry",
+            "Value" : "never"
+          },
+          {
+            "Key" : "purpose",
+            "Value" : "Runs tests for self-training."
+          },
+          {
+            "Key": "stack",
+            "Value": { "Ref": "AWS::StackName" }
+          }
+        ]
+      }
+    }
+  }
+}

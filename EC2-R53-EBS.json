@@ -161,7 +161,6 @@
         "Properties" : {
            "Size" : "4",
            "Encrypted" : "false",
-           "AvailabilityZone" : { "Ref": "AWS::Region" },
            "Tags" : [
             {
               "Key" : "created_by",

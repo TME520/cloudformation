@@ -57,7 +57,9 @@
               "VolumeSize":"22",
               "VolumeType":"gp2",
               "DeleteOnTermination": true,
-              "Encrypted": false
+              "Encrypted": false,
+              "KmsKeyId" : { "Ref": "AWS::NoValue" },
+              "SnapshotId": { "Ref": "AWS::NoValue" }
             },
             "DeviceName":"/dev/sdh"
           }],

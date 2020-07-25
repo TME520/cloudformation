@@ -197,8 +197,8 @@
         "Fn::Join": [ "", [ "", "ssh -v -i $HOME/.ssh/", { "Ref": "KeyName"}, ".pem ec2-user@", { "Fn::GetAtt": [ "EC2Instance", "PublicIp" ] } ] ]
       }
     },
-    "Demon1": {
-      "Description": "Name of the 1st demon",
+    "DemonOfTheRun": {
+      "Description": "Name of the best demon",
       "Value": {
         "Fn::Select": [
             1, {
@@ -220,6 +220,39 @@
                                     ",",
                                     {
                                         "Ref": "DemonsGoingUp"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+      }
+    },
+    "LoserOfTheRun": {
+      "Description": "Name of the loser demon",
+      "Value": {
+        "Fn::Select": [
+            1, {
+                "Fn::Split": [
+                    ":",
+                    {
+                        "Fn::Select": [
+                            {
+                                "Fn::FindInMap": [
+                                    "Demonsmap",
+                                    "DemonsGoingDown",
+                                    {
+                                        "Ref": "LoserDemon"
+                                    }
+                                ]
+                            },
+                            {
+                                "Fn::Split": [
+                                    ",",
+                                    {
+                                        "Ref": "DemonsGoingDown"
                                     }
                                 ]
                             }

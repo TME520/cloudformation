@@ -32,7 +32,12 @@
         "Default": "Demon1:Choucroutard,Demon2:Bierprouton,Demon3:Raplaflan,Demon4:Rempiflard"
     },
     "ChosenDemon": {
-        "Description": "Demon currently active",
+        "Description": "Our best demon for this run",
+        "Type": "String",
+        "Default": ""
+    },
+    "LoserDemon": {
+        "Description": "Our worst demon for this run",
         "Type": "String",
         "Default": ""
     },

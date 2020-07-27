@@ -284,6 +284,12 @@
         "Value": {
             "Fn::Select": [ 1, { "Fn::Split": [ ":", { "Fn::Select": [ {"Fn::FindInMap": [ "StreamASGParamsIndexMap", "StreamASGParams", "StreamASG1AZ" ] }, { "Fn::Split": [",", { "Ref": "StreamASGParams" } ] } ] } ] } ]
         }
+    },
+    "StreamAZ2": {
+        "Description": "AZ for Stream 2 type nodes",
+        "Value": {
+            "Fn::Select": [ 1, { "Fn::Split": [ ":", { "Fn::Select": [ {"Fn::FindInMap": [ "StreamASGParamsIndexMap", "StreamASGParams", "StreamASG2AZ" ] }, { "Fn::Split": [",", { "Ref": "StreamASGParams" } ] } ] } ] } ]
+        }
     }
   }
 }

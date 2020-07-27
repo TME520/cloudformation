@@ -50,6 +50,11 @@
         "Description": "Our worst demons",
         "Type": "String",
         "Default": "Demon1: Choucroutard The Lazy,Demon2:Bierprouton The Stupid,Demon3:Raplaflan The Smelly,Demon4:Rempiflard The Ugly"
+    },
+    "StreamASGParams": {
+        "Description": "AZ for Stream nodes 1 & 2 ASGs",
+        "Type": "String",
+        "Default": "StreamASG1AZ:ap-southeast-2a,StreamASG2AZ:ap-southeast-2b"
     }
   },
   "Mappings": {
@@ -73,6 +78,12 @@
     "Demonsmap": {
         "DemonsGoingUp": {"Demon1": "0", "Demon2": "1", "Demon3": "2", "Demon4": "3"},
         "DemonsGoingDown": {"Demon1": "0", "Demon2": "1", "Demon3": "2", "Demon4": "3"}
+    },
+    "StreamASGParamsIndexMap": {
+        "StreamASGParams": {
+            "StreamASG1AZ": "0",
+            "StreamASG2AZ": "1"
+        }
     }
   },
   "Resources": {
@@ -267,6 +278,12 @@
             }
         ]
       }
+    },
+    "StreamAZ1": {
+        "Description": "AZ for Stream 1 type nodes",
+        "Value": {
+            "Fn::Select": [ 1, { "Fn::Split": [ ":", { "Fn::Select": [ {"Fn::FindInMap": [ "StreamASGParamsIndexMap", "StreamASGParams", "StreamASG1AZ" ] }, { "Fn::Split": [",", { "Ref": "StreamASGParams" } ] } ] } ] } ]
+        }
     }
   }
 }

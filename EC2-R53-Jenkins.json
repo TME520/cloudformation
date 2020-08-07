@@ -139,7 +139,7 @@
                     ]
                   ]
                 },
-                "mode": "000600",
+                "mode": "000644",
                 "user": "ec2-user",
                 "group": "ec2-user"
               }

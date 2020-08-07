@@ -119,6 +119,9 @@
       },
       "Metadata": {
         "AWS::CloudFormation::Init": {
+          "configSets": {
+            "BasicSetup": ["BasicSetup"]
+          },
           "BasicSetup": {
             "packages": {
               "yum": {

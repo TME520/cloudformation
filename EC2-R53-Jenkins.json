@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Create an Amazon EC2 instance running the Amazon Linux AMI, an EC2 security group for the instance to give you SSH access and a Route 53 record point to the instance.",
+  "Description": "Create an Amazon EC2 instance running the Amazon Linux AMI & Jenkins, an EC2 security group for the instance to give you SSH access and a Route 53 record point to the instance.",
   "Parameters": {
     "KeyName": {
       "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instance",
@@ -85,7 +85,7 @@
         },
         "Tags": [
           {
-            "Key": "created_by",
+            "Key": "created-by",
             "Value": "TME520"
           },
           {
@@ -94,13 +94,22 @@
           },
           {
             "Key": "purpose",
-            "Value": "Runs tests for self-training."
+            "Value": "This EC2 instance runs Jenkins."
           },
           {
             "Key": "stack",
             "Value": { "Ref": "AWS::StackName" }
           }
-        ]
+        ],
+        "Metadata": {
+          "AWS::CloudFormation::Init": {
+            "config": {
+              "packages": {
+
+              }
+            }
+          }
+        }
       }
     },
     "InstanceSecurityGroup": {
@@ -119,7 +128,7 @@
         ],
         "Tags": [
           {
-            "Key" : "created_by",
+            "Key" : "created-by",
             "Value" : "TME520"
           },
           {
@@ -128,7 +137,7 @@
           },
           {
             "Key" : "purpose",
-            "Value" : "Runs tests for self-training."
+            "Value" : "Run Jenkins safely."
           },
           {
             "Key": "stack",
@@ -149,42 +158,7 @@
           { "Fn::GetAtt": [ "EC2Instance", "PublicIp" ] }
         ]
       }
-    },
-    "EBSVolume" : {
-        "Type" : "AWS::EC2::Volume",
-        "Properties" : {
-           "Size" : "4",
-           "Encrypted" : "false",
-           "AvailabilityZone" : { "Fn::GetAtt" : [ "EC2Instance", "AvailabilityZone" ] },
-           "Tags" : [
-            {
-              "Key" : "created_by",
-              "Value" : "TME520"
-            },
-            {
-              "Key" : "expiry",
-              "Value" : "never"
-            },
-            {
-              "Key" : "purpose",
-              "Value" : "Runs tests for self-training."
-            },
-            {
-              "Key": "stack",
-              "Value": { "Ref": "AWS::StackName" }
-            }
-          ]
-        },
-        "DeletionPolicy" : "Delete"
-      },
-      "MountPoint" : {
-      "Type" : "AWS::EC2::VolumeAttachment",
-      "Properties" : {
-        "InstanceId" : { "Ref" : "EC2Instance" },
-        "VolumeId"  : { "Ref" : "EBSVolume" },
-        "Device" : "/dev/sdh"
-      }
-    }
+   }
   },
   "Outputs": {
     "InstanceId": {

@@ -238,6 +238,12 @@
       "Value": {
         "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ]
       }
+    },
+    "FQDNSSHConnectionShellCommand": {
+      "Description": "The command line you have to type in order to SSH into the EC2 instance (path to SSH key may vary).",
+      "Value": {
+        "Fn::Join": [ "", [ "", "ssh -v -i $HOME/.ssh/", { "Ref": "KeyName"}, ".pem ec2-user@", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ]
+      }
     }
   }
 }

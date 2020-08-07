@@ -110,7 +110,7 @@
                 "/opt/aws/bin/cfn-init ",
                 "         --stack ", { "Ref" : "AWS::StackName" },
                 "         --resource EC2Instance ",
-                "         --configsets BasicSetup ",
+                "         --configsets Basic ",
                 "         --region ", { "Ref" : "AWS::Region" }, "\n"
               ]
             ]
@@ -120,7 +120,7 @@
       "Metadata": {
         "AWS::CloudFormation::Init": {
           "configSets": {
-            "BasicSetup": ["BasicSetup"]
+            "Basic": ["BasicSetup"]
           },
           "BasicSetup": {
             "packages": {

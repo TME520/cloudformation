@@ -176,11 +176,12 @@
                   "Fn::Join": [
                     "", [
                       "echo 'Installing Protocol/7...';",
+                      "echo 'install_protocol7 BEGIN' >> /home/ec2-user/stages.log;",
                       "pip install --upgrade pip;",
                       "pip-3.6 install --user 'cozmo[camera]';",
                       "git clone https://github.com/TME520/protocol7.git;",
                       "chown -R ec2-user:ec2-user ./protocol7/;",
-                      "echo 'install_protocol7' >> /home/ec2-user/stages.log;"
+                      "echo 'install_protocol7 DONE' >> /home/ec2-user/stages.log;"
                     ]
                   ]
                 }
@@ -189,7 +190,7 @@
           },
           "P7_configure": {
             "files": {
-              "/home/ec2-user/protocol7/.cfn-init-was-there": {
+              "/tmp/.cfn-init-was-there": {
                 "content": {
                   "Fn::Join": [
                     "", [
@@ -210,7 +211,8 @@
                   "Fn::Join": [
                     "", [
                       "echo 'Configuring Protocol/7...';",
-                      "echo 'configure_protocol7' >> /home/ec2-user/stages.log;"
+                      "echo 'configure_protocol7 BEGIN' >> /home/ec2-user/stages.log;",
+                      "echo 'configure_protocol7 DONE' >> /home/ec2-user/stages.log;"
                     ]
                   ]
                 }

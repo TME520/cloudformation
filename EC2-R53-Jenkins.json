@@ -271,6 +271,12 @@
       "Value": {
         "Fn::Join": [ "", [ "", "ssh -v -i $HOME/.ssh/", { "Ref": "KeyName"}, ".pem ec2-user@", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ]
       }
+    },
+    "JenkinsURL": {
+      "Description": "The URL you have to open in order to use Jenkins.",
+      "Value": {
+        "Fn::Join": [ "", [ "", "http://", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" }, ":8080" ] ]
+      }
     }
   }
 }

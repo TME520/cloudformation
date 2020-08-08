@@ -125,7 +125,9 @@
           "BasicSetup": {
             "packages": {
               "yum": {
-                "htop": []
+                "htop": [],
+                "git": [],
+                "python36-pip": []
               }
             },
             "files": {
@@ -171,7 +173,9 @@
                 "command": {
                   "Fn::Join": [
                     "", [
-                      "echo 'Installing Protocol/7...';"
+                      "echo 'Installing Protocol/7...';",
+                      "pip install --upgrade pip;",
+                      "pip-3.6 install --user 'cozmo[camera]';"
                     ]
                   ]
                 }

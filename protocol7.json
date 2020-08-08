@@ -154,13 +154,15 @@
                   "Fn::Join": [
                     "", [
                       "echo 'Installing Jenkins...';",
+                      "echo 'install_jenkins BEGIN' >> /home/ec2-user/stages.log;",
                       "wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo;",
                       "rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key;",
                       "yum upgrade -y;",
                       "yum remove -y jenkins java-1.7.0-openjdk;",
                       "yum install -y jenkins java-1.8.0-openjdk-devel;",
                       "sleep 4;",
-                      "service jenkins start;"
+                      "service jenkins start;",
+                      "echo 'install_jenkins DONE' >> /home/ec2-user/stages.log;"
                     ]
                   ]
                 }
@@ -175,7 +177,10 @@
                     "", [
                       "echo 'Installing Protocol/7...';",
                       "pip install --upgrade pip;",
-                      "pip-3.6 install --user 'cozmo[camera]';"
+                      "pip-3.6 install --user 'cozmo[camera]';",
+                      "git clone https://github.com/TME520/protocol7.git;",
+                      "chown -R ec2-user:ec2-user ./protocol7/;",
+                      "echo 'install_protocol7' >> /home/ec2-user/stages.log;"
                     ]
                   ]
                 }
@@ -204,7 +209,8 @@
                 "command": {
                   "Fn::Join": [
                     "", [
-                      "echo 'Configuring Protocol/7...';"
+                      "echo 'Configuring Protocol/7...';",
+                      "echo 'configure_protocol7' >> /home/ec2-user/stages.log;"
                     ]
                   ]
                 }

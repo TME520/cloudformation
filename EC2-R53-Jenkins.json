@@ -110,7 +110,7 @@
                 "/opt/aws/bin/cfn-init ",
                 "         --stack ", { "Ref" : "AWS::StackName" },
                 "         --resource EC2Instance ",
-                "         --configsets Basic ",
+                "         --configsets JenkinsWeekly ",
                 "         --region ", { "Ref" : "AWS::Region" }, "\n"
               ]
             ]
@@ -120,7 +120,7 @@
       "Metadata": {
         "AWS::CloudFormation::Init": {
           "configSets": {
-            "Basic": ["BasicSetup"]
+            "JenkinsWeekly": ["BasicSetup","JenkinsWeeklySetup"]
           },
           "BasicSetup": {
             "packages": {
@@ -142,6 +142,23 @@
                 "mode": "000644",
                 "user": "ec2-user",
                 "group": "ec2-user"
+              }
+            }
+          },
+          "JenkinsWeeklySetup": {
+            "commands": {
+              "install_jenkins": {
+                "command": {
+                  "Fn::Join": [
+                    "", [
+                      "echo 'Installing Jenkins...';",
+                      "wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo;",
+                      "rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key;",
+                      "yum upgrade -y;",
+                      "yum install -y jenkins java-1.8.0-openjdk-devel;"
+                    ]
+                  ]
+                }
               }
             }
           }

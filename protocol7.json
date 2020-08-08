@@ -1,0 +1,324 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "This template deploys a full instance of Protocol/7 (EC2, R53, Jenkins, p7, cb1).",
+  "Parameters": {
+    "KeyName": {
+      "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instance",
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "Default": "ec2key",
+      "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+    },
+    "InstanceType": {
+      "Description": "WebServer EC2 instance type",
+      "Type": "String",
+      "Default": "t2.micro",
+      "AllowedValues": [
+        "t2.micro"
+      ],
+      "ConstraintDescription": "must be a valid EC2 instance type."
+    },
+    "SSHLocation": {
+      "Description": "The IP address range that can be used to SSH to the EC2 instances",
+      "Type": "String",
+      "MinLength": "9",
+      "MaxLength": "18",
+      "Default": "0.0.0.0/0",
+      "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+      "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
+    },
+    "HostedZoneName": {
+      "Description": "The route53 HostedZoneName. Don't forget the period at the end.",
+      "Type": "String",
+      "Default": ""
+    }
+  },
+  "Mappings": {
+    "AWSInstanceType2Arch": {
+      "t2.micro": {
+        "Arch": "HVM64"
+      }
+    },
+    "AWSInstanceType2NATArch": {
+      "t2.micro": {
+        "Arch": "NATHVM64"
+      }
+    },
+    "AWSRegionArch2AMI": {
+      "ap-southeast-2": {
+        "PV64": "ami-63351d00",
+        "HVM64": "ami-dc361ebf",
+        "HVMG2": "ami-0ad2db69"
+      }
+    }
+  },
+  "Resources": {
+    "EC2Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "InstanceType": {
+          "Ref": "InstanceType"
+        },
+        "SecurityGroups": [
+          {
+            "Ref": "InstanceSecurityGroup"
+          }
+        ],
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "ImageId": {
+          "Fn::FindInMap": [
+            "AWSRegionArch2AMI",
+            {
+              "Ref": "AWS::Region"
+            },
+            {
+              "Fn::FindInMap": [
+                "AWSInstanceType2Arch",
+                {
+                  "Ref": "InstanceType"
+                },
+                "Arch"
+              ]
+            }
+          ]
+        },
+        "Tags": [
+          {
+            "Key": "created-by",
+            "Value": "TME520"
+          },
+          {
+            "Key": "expiry",
+            "Value": "never"
+          },
+          {
+            "Key": "purpose",
+            "Value": "This EC2 instance runs Protocol/7."
+          },
+          {
+            "Key": "stack",
+            "Value": { "Ref": "AWS::StackName" }
+          }
+        ],
+        "UserData": {
+          "Fn::Base64" : {
+            "Fn::Join" : [
+              "", [
+                "#!/bin/bash -xe\n",
+                "yum install -y aws-cfn-bootstrap\n",
+                "/opt/aws/bin/cfn-init ",
+                "         --stack ", { "Ref" : "AWS::StackName" },
+                "         --resource EC2Instance ",
+                "         --configsets FullProtocol7 ",
+                "         --region ", { "Ref" : "AWS::Region" }, "\n"
+              ]
+            ]
+          }
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Init": {
+          "configSets": {
+            "FullProtocol7": ["BasicSetup","JenkinsWeeklySetup","P7_install","P7_configure"]
+          },
+          "BasicSetup": {
+            "packages": {
+              "yum": {
+                "htop": []
+              }
+            },
+            "files": {
+              "/home/ec2-user/.cfn-init-run-check": {
+                "content": {
+                  "Fn::Join" : [
+                    "", [
+                      "[general]\n",
+                      "Stack: ", { "Ref": "AWS::StackName" }, "\n",
+                      "Region: ", { "Ref": "AWS::Region" }, "\n"
+                    ]
+                  ]
+                },
+                "mode": "000644",
+                "user": "ec2-user",
+                "group": "ec2-user"
+              }
+            }
+          },
+          "JenkinsWeeklySetup": {
+            "commands": {
+              "install_jenkins": {
+                "command": {
+                  "Fn::Join": [
+                    "", [
+                      "echo 'Installing Jenkins...';",
+                      "wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo;",
+                      "rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key;",
+                      "yum upgrade -y;",
+                      "yum remove -y jenkins java-1.7.0-openjdk;",
+                      "yum install -y jenkins java-1.8.0-openjdk-devel;",
+                      "sleep 4;",
+                      "service jenkins start;"
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "P7_install": {
+            "commands": {
+              "install_protocol7": {
+                "command": {
+                  "Fn::Join": [
+                    "", [
+                      "echo 'Installing Protocol/7...';"
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "P7_configure": {
+            "files": {
+              "/home/ec2-user/protocol7/.cfn-init-was-there": {
+                "content": {
+                  "Fn::Join": [
+                    "", [
+                      "[general]\n",
+                      "Stack: ", { "Ref": "AWS::StackName" }, "\n",
+                      "Region: ", { "Ref": "AWS::Region" }, "\n"
+                    ]
+                  ]
+                },
+                "mode": "000644",
+                "user": "ec2-user",
+                "group": "ec2-user"
+              }
+            },
+            "commands": {
+              "configure_protocol7": {
+                "command": {
+                  "Fn::Join": [
+                    "", [
+                      "echo 'Configuring Protocol/7...';"
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "InstanceSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Enable SSH access via port 22 and HTTP access via port 8080.",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "CidrIp": { "Ref": "SSHLocation" }
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 8080,
+            "ToPort": 8080,
+            "CidrIp": { "Ref": "SSHLocation" }
+          }
+        ],
+        "Tags": [
+          {
+            "Key" : "created-by",
+            "Value" : "TME520"
+          },
+          {
+            "Key" : "expiry",
+            "Value" : "never"
+          },
+          {
+            "Key" : "purpose",
+            "Value" : "Run Protocol/7 safely."
+          },
+          {
+            "Key": "stack",
+            "Value": { "Ref": "AWS::StackName" }
+          }
+        ]
+      }
+    },
+    "myDNSRecord" : {
+      "Type" : "AWS::Route53::RecordSet",
+      "Properties" : {
+        "HostedZoneName": { "Ref": "HostedZoneName" },
+        "Comment": "DNS name for my instance",
+        "Name" : { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
+        "TTL" : 900,
+        "Type" : "CNAME",
+        "ResourceRecords": [
+          { "Fn::GetAtt": [ "EC2Instance", "PublicIp" ] }
+        ]
+      }
+   }
+  },
+  "Outputs": {
+    "InstanceId": {
+      "Description": "InstanceId of the newly created EC2 instance",
+      "Value": {
+        "Ref": "EC2Instance"
+      }
+    },
+    "AZ": {
+      "Description": "Availability Zone of the newly created EC2 instance",
+      "Value": {
+        "Fn::GetAtt": [
+          "EC2Instance",
+          "AvailabilityZone"
+        ]
+      }
+    },
+    "PublicDNS": {
+      "Description": "Public DNSName of the newly created EC2 instance",
+      "Value": {
+        "Fn::GetAtt": [
+          "EC2Instance",
+          "PublicDnsName"
+        ]
+      }
+    },
+    "PublicIP": {
+      "Description": "Public IP address of the newly created EC2 instance",
+      "Value": {
+        "Fn::GetAtt": [
+          "EC2Instance",
+          "PublicIp"
+        ]
+      }
+    },
+    "SSHConnectionShellCommand": {
+      "Description": "The command line you have to type in order to SSH into the EC2 instance (path to SSH key may vary).",
+      "Value": {
+        "Fn::Join": [ "", [ "", "ssh -v -i $HOME/.ssh/", { "Ref": "KeyName"}, ".pem ec2-user@", { "Fn::GetAtt": [ "EC2Instance", "PublicIp" ] } ] ]
+      }
+    },
+    "RecordSetName": {
+      "Description": "The DNS entry pointing to the EC2 instance.",
+      "Value": {
+        "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ]
+      }
+    },
+    "FQDNSSHConnectionShellCommand": {
+      "Description": "The command line you have to type in order to SSH into the EC2 instance (path to SSH key may vary).",
+      "Value": {
+        "Fn::Join": [ "", [ "", "ssh -v -i $HOME/.ssh/", { "Ref": "KeyName"}, ".pem ec2-user@", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ]
+      }
+    },
+    "JenkinsURL": {
+      "Description": "The URL you have to open in order to use Jenkins.",
+      "Value": {
+        "Fn::Join": [ "", [ "", "http://", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" }, ":8080" ] ]
+      }
+    }
+  }
+}

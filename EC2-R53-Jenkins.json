@@ -155,7 +155,10 @@
                       "wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo;",
                       "rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key;",
                       "yum upgrade -y;",
-                      "yum install -y jenkins java-1.8.0-openjdk-devel;"
+                      "yum remove -y jenkins java-1.7.0-openjdk;",
+                      "yum install -y jenkins java-1.8.0-openjdk-devel;",
+                      "sleep 4;",
+                      "service jenkins start;"
                     ]
                   ]
                 }

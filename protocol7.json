@@ -120,7 +120,21 @@
       "Metadata": {
         "AWS::CloudFormation::Init": {
           "configSets": {
-            "FullProtocol7": ["BasicSetup","JenkinsWeeklySetup","P7_install","P7_configure"]
+            "FullProtocol7": ["AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup","P7Install","P7Configure"]
+          },
+          "AddYumRepositories": {
+            "commands": {
+              "add_jenkins_repo": {
+                "command": "wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo && rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key && yum remove -y jenkins java-1.7.0-openjdk"
+              }
+            }
+          },
+          "YumUpgrade": {
+            "commands": {
+              "upgrade_yum_packages": {
+                "command": "yum update -y && yum upgrade -y"
+              }
+            }
           },
           "BasicSetup": {
             "packages": {
@@ -150,26 +164,21 @@
           },
           "JenkinsWeeklySetup": {
             "commands": {
-              "install_jenkins": {
+              "start_jenkins": {
                 "command": {
                   "Fn::Join": [
                     "", [
-                      "echo 'Installing Jenkins...';",
-                      "echo 'install_jenkins BEGIN' >> /home/ec2-user/stages.log;",
-                      "wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo;",
-                      "rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key;",
-                      "yum upgrade -y;",
-                      "yum remove -y jenkins java-1.7.0-openjdk;",
-                      "sleep 4;",
+                      "echo 'Starting Jenkins...';",
+                      "echo 'start_jenkins BEGIN' >> /home/ec2-user/stages.log;",
                       "service jenkins start;",
-                      "echo 'install_jenkins DONE' >> /home/ec2-user/stages.log;"
+                      "echo 'start_jenkins DONE' >> /home/ec2-user/stages.log;"
                     ]
                   ]
                 }
               }
             }
           },
-          "P7_install": {
+          "P7Install": {
             "commands": {
               "install_protocol7": {
                 "command": {
@@ -188,7 +197,7 @@
               }
             }
           },
-          "P7_configure": {
+          "P7Configure": {
             "files": {
               "/tmp/.cfn-init-was-there": {
                 "content": {

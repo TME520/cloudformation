@@ -174,9 +174,13 @@
             "IpProtocol": "tcp",
             "FromPort": 22,
             "ToPort": 22,
-            "CidrIp": {
-              "Ref": "SSHLocation"
-            }
+            "CidrIp": { "Ref": "SSHLocation" }
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 8080,
+            "ToPort": 8080,
+            "CidrIp": { "Ref": "SSHLocation" }
           }
         ],
         "Tags": [

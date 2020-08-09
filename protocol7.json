@@ -120,7 +120,7 @@
       "Metadata": {
         "AWS::CloudFormation::Init": {
           "configSets": {
-            "FullProtocol7": ["AddYumRepositories","YumUpgrade","BasicSetup"],
+            "FullProtocol7": ["AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup"],
             "Disabled": ["AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup","P7Install","P7Configure"]
           },
           "AddYumRepositories": {

@@ -18,7 +18,7 @@
       "ConstraintDescription": "must be a valid EC2 instance type."
     },
     "SSHLocation": {
-      "Description": "The IP address range that can be used to SSH to the EC2 instances",
+      "Description": "The IP address range that can be used to SSH to the EC2 instances.",
       "Type": "String",
       "MinLength": "9",
       "MaxLength": "18",
@@ -30,6 +30,26 @@
       "Description": "The route53 HostedZoneName. Don't forget the period at the end.",
       "Type": "String",
       "Default": ""
+    },
+    "P7InstanceName": {
+      "Description": "Name for this instance of Protocol/7",
+      "Type": "String",
+      "Default": "p7"
+    },
+    "P7InstanceClient": {
+      "Description": "Name of the client being monitored by this instance of Protocol/7.",
+      "Type": "String",
+      "Default": "pantzumatic"
+    },
+    "P7InstanceEnv": {
+      "Description": "Name of the environment being monitored by this instance of Protocol/7 (dev, test, uat, integ, prod...)",
+      "Type": "String",
+      "Default": "test"
+    },
+    "P7InstanceProject": {
+      "Description": "Name of the project this instance of Protocol/7 is monitoring.",
+      "Type": "String",
+      "Default": "mkultra"
     }
   },
   "Mappings": {
@@ -203,7 +223,11 @@
                     "", [
                       "[general]\n",
                       "Stack: ", { "Ref": "AWS::StackName" }, "\n",
-                      "Region: ", { "Ref": "AWS::Region" }, "\n"
+                      "Region: ", { "Ref": "AWS::Region" }, "\n",
+                      "P7 instance name: ", { "Ref": "P7InstanceName" }, "\n",
+                      "P7 instance client: ", { "Ref": "P7InstanceClient" }, "\n",
+                      "P7 instance environment: ", { "Ref": "P7InstanceEnv" }, "\n",
+                      "P7 instance project: ", { "Ref": "P7InstanceProject" }, "\n"
                     ]
                   ]
                 },
@@ -219,7 +243,8 @@
                     "", [
                       "echo 'Configuring Protocol/7...';",
                       "touch /home/ec2-user/all_clear;",
-                      "touch /home/ec2-user/cloudformation/all_clear;"
+                      "touch /home/ec2-user/cloudformation/all_clear;",
+                      "touch /home/ec2-user/cloudformation/all_clear2;"
                     ]
                   ]
                 }

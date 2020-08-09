@@ -217,7 +217,7 @@
                   "Fn::Join": [
                     "", [
                       "echo 'Configuring Protocol/7...';",
-                      "touch /home/ec2-user/protocol7/all_clear;"
+                      "touch /home/ec2-user/all_clear;"
                     ]
                   ]
                 }

@@ -120,8 +120,7 @@
       "Metadata": {
         "AWS::CloudFormation::Init": {
           "configSets": {
-            "FullProtocol7": ["AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup","P7Install"],
-            "Disabled": ["AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup","P7Install","P7Configure"]
+            "FullProtocol7": ["AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup","P7Install","P7Configure"]
           },
           "AddYumRepositories": {
             "commands": {
@@ -171,9 +170,7 @@
                   "Fn::Join": [
                     "", [
                       "echo 'Starting Jenkins...';",
-                      "echo 'start_jenkins BEGIN' >> /home/ec2-user/stages.log;",
-                      "service jenkins start;",
-                      "echo 'start_jenkins DONE' >> /home/ec2-user/stages.log;"
+                      "service jenkins start;"
                     ]
                   ]
                 }
@@ -187,12 +184,10 @@
                   "Fn::Join": [
                     "", [
                       "echo 'Installing Protocol/7...';",
-                      "echo 'install_protocol7 BEGIN' >> /home/ec2-user/stages.log;",
                       "pip install --upgrade pip;",
                       "pip-3.6 install --user 'cozmo[camera]';",
                       "git clone https://github.com/TME520/protocol7.git;",
-                      "chown -R ec2-user:ec2-user ./protocol7/;",
-                      "echo 'install_protocol7 DONE' >> /home/ec2-user/stages.log;"
+                      "chown -R ec2-user:ec2-user ./protocol7/;"
                     ]
                   ]
                 }
@@ -222,8 +217,7 @@
                   "Fn::Join": [
                     "", [
                       "echo 'Configuring Protocol/7...';",
-                      "echo 'configure_protocol7 BEGIN' >> /home/ec2-user/stages.log;",
-                      "echo 'configure_protocol7 DONE' >> /home/ec2-user/stages.log;"
+                      "touch /home/ec2-user/protocol7/all_clear;"
                     ]
                   ]
                 }

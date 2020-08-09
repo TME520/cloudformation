@@ -186,6 +186,7 @@
                       "echo 'Installing Protocol/7...';",
                       "pip install --upgrade pip;",
                       "pip-3.6 install --user 'cozmo[camera]';",
+                      "cd /home/ec2-user/;",
                       "git clone https://github.com/TME520/protocol7.git;",
                       "chown -R ec2-user:ec2-user ./protocol7/;"
                     ]
@@ -217,7 +218,8 @@
                   "Fn::Join": [
                     "", [
                       "echo 'Configuring Protocol/7...';",
-                      "touch /home/ec2-user/all_clear;"
+                      "touch /home/ec2-user/all_clear;",
+                      "touch /home/ec2-user/cloudformation/all_clear;"
                     ]
                   ]
                 }

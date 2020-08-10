@@ -219,8 +219,9 @@
                 "command": {
                   "Fn::Join": [
                     "", [
-                      "/home/ec2-user/dynamodb/startDynamoDB.sh;",
-                      "sleep 10;",
+                      "cd /home/ec2-user/dynamodb/;",
+                      "nohup java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -port 8001 &;",
+                      "sleep 8;",
                       "netstat -atnup | grep 8001;",
                       "if [ $? -eq 0 ] ; then echo 'DynamoDB is now listening on port 8001' ; else echo '[ERROR] DynamoDB is not started' ; fi;"
                     ]

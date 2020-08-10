@@ -1,0 +1,33 @@
+[
+  {
+    "stack_name": "protocol7",
+    "authorized_ip": "0.0.0.0/0",
+    "hosted_zone_name": "schneiderzupper.de.",
+    "p7_instance_name": "p7",
+    "p7_instance_client": "pantzumatic",
+    "p7_instance_env": "test",
+    "p7_instance_project": "mkultra",
+    "slack_token": "",
+    "azure_storage_account_name": "",
+    "azure_storage_account_key": "",
+    "azure_devops_url": "",
+    "azure_devops_pat": "",
+    "nt_api_user": "",
+    "nt_api_password": "",
+    "nt_api_search_url": "",
+    "nt_api_login_url": "",
+    "sumo_endpoint": "",
+    "dynamodb_url": "",
+    "chatbotone_data_folder": "",
+    "dashboard_filename": "",
+    "advanced_dashboard_filename": "",
+    "dashboard_base_url": "",
+    "logs_folder": "",
+    "log_filename": "",
+    "config_filename": "",
+    "enable_blinkstick": "",
+    "enable_slack": "",
+    "enable_sumologic": "",
+    "enable_dashboard": ""
+  }
+]

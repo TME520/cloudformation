@@ -219,7 +219,7 @@
                 "command": {
                   "Fn::Join": [
                     "", [
-                      "/home/ec2-user/protocol7/startDynamoDB.sh;",
+                      "/home/ec2-user/dynamodb/startDynamoDB.sh;",
                       "sleep 10;",
                       "netstat -atnup | grep 8001;",
                       "if [ $? -eq 0 ] ; then echo 'DynamoDB is now listening on port 8001' ; else echo '[ERROR] DynamoDB is not started' ; fi;"

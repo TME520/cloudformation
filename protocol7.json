@@ -140,7 +140,7 @@
       "Metadata": {
         "AWS::CloudFormation::Init": {
           "configSets": {
-            "FullProtocol7": ["AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup","DDBInstall","P7Install","P7Configure"]
+            "FullProtocol7": ["AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup","DDBInstall","DDBStart","P7Install","P7Configure"]
           },
           "AddYumRepositories": {
             "commands": {
@@ -207,6 +207,22 @@
                       "wget -O dynamodb_local_latest.tar.gz https://s3.ap-southeast-1.amazonaws.com/dynamodb-local-singapore/dynamodb_local_latest.tar.gz;",
                       "tar xzvf dynamodb_local_latest.tar.gz;",
                       "chown -R ec2-user:ec2-user /home/ec2-user/dynamodb/;"
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "DDBStart": {
+            "commands": {
+              "start_dynamodb": {
+                "command": {
+                  "Fn::Join": [
+                    "", [
+                      "/home/ec2-user/protocol7/startDynamoDB.sh;",
+                      "sleep 10;",
+                      "netstat -atnup | grep 8001;",
+                      "if [ $? -eq 0 ] ; then echo 'DynamoDB is now listening on port 8001' ; else echo '[ERROR] DynamoDB is not started' ; fi;"
                     ]
                   ]
                 }

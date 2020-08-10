@@ -220,7 +220,7 @@
                   "Fn::Join": [
                     "", [
                       "cd /home/ec2-user/dynamodb/;",
-                      "java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -port 8001 &"
+                      "nohup java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -port 8001 > foo.out 2> foo.err < /dev/null &"
                     ]
                   ]
                 }

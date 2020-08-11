@@ -1,33 +1,118 @@
 [
   {
-    "stack_name": "protocol7",
-    "authorized_ip": "0.0.0.0/0",
-    "hosted_zone_name": "schneiderzupper.de.",
-    "p7_instance_name": "p7",
-    "p7_instance_client": "pantzumatic",
-    "p7_instance_env": "test",
-    "p7_instance_project": "mkultra",
-    "slack_token": "",
-    "azure_storage_account_name": "",
-    "azure_storage_account_key": "",
-    "azure_devops_url": "",
-    "azure_devops_pat": "",
-    "nt_api_user": "",
-    "nt_api_password": "",
-    "nt_api_search_url": "",
-    "nt_api_login_url": "",
-    "sumo_endpoint": "",
-    "dynamodb_url": "",
-    "chatbotone_data_folder": "",
-    "dashboard_filename": "",
-    "advanced_dashboard_filename": "",
-    "dashboard_base_url": "",
-    "logs_folder": "",
-    "log_filename": "",
-    "config_filename": "",
-    "enable_blinkstick": "",
-    "enable_slack": "",
-    "enable_sumologic": "",
-    "enable_dashboard": ""
+    "ParameterKey": "stack_name",
+    "ParameterValue":"protocol7"
+  },
+  {
+    "ParameterKey": "authorized_ip",
+    "ParameterValue": "0.0.0.0/0"
+  },
+  {
+    "ParameterKey": "hosted_zone_name",
+    "ParameterValue": "schneiderzupper.de."
+  },
+  {
+    "ParameterKey": "p7_instance_name",
+    "ParameterValue": "p7"
+  },
+  {
+    "ParameterKey": "p7_instance_client",
+    "ParameterValue": "pantzumatic"
+  },
+  {
+    "ParameterKey": "p7_instance_env",
+    "ParameterValue": "test"
+  },
+  {
+    "ParameterKey": "p7_instance_project",
+    "ParameterValue": "mkultra"
+  },
+  {
+    "ParameterKey": "slack_token",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "azure_storage_account_name",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "azure_storage_account_key",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "azure_devops_url",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "azure_devops_pat",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "nt_api_user",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "nt_api_password",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "nt_api_search_url",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "nt_api_login_url",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "sumo_endpoint",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "dynamodb_url",
+    "ParameterValue": "http://localhost:8001"
+  },
+  {
+    "ParameterKey": "chatbotone_data_folder",
+    "ParameterValue": "./cb1data/"
+  },
+  {
+    "ParameterKey": "dashboard_filename",
+    "ParameterValue": "p7.html"
+  },
+  {
+    "ParameterKey": "advanced_dashboard_filename",
+    "ParameterValue": "p7adv.html"
+  },
+  {
+    "ParameterKey": "dashboard_base_url",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "logs_folder",
+    "ParameterValue": "./log/"
+  },
+  {
+    "ParameterKey": "log_filename",
+    "ParameterValue": "protocol7.log"
+  },
+  {
+    "ParameterKey": "config_filename",
+    "ParameterValue": "p7_pantzumatic_test_config.py"
+  },
+  {
+    "ParameterKey": "enable_blinkstick",
+    "ParameterValue": 0
+  },
+  {
+    "ParameterKey": "enable_slack",
+    "ParameterValue": 0
+  },
+  {
+    "ParameterKey": "enable_sumologic",
+    "ParameterValue": 0
+  },
+  {
+    "ParameterKey": "enable_dashboard",
+    "ParameterValue": 0
   }
 ]

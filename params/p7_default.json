@@ -1,118 +1,118 @@
 [
   {
     "ParameterKey": "stack_name",
-    "ParameterValue":"protocol7"
+    "ParameterValue":"SED027"
   },
   {
     "ParameterKey": "authorized_ip",
-    "ParameterValue": "0.0.0.0/0"
+    "ParameterValue": "SED028"
   },
   {
     "ParameterKey": "hosted_zone_name",
-    "ParameterValue": "schneiderzupper.de."
+    "ParameterValue": "SED029"
   },
   {
     "ParameterKey": "p7_instance_name",
-    "ParameterValue": "p7"
+    "ParameterValue": "SED001"
   },
   {
     "ParameterKey": "p7_instance_client",
-    "ParameterValue": "pantzumatic"
+    "ParameterValue": "SED002"
   },
   {
     "ParameterKey": "p7_instance_env",
-    "ParameterValue": "test"
+    "ParameterValue": "SED003"
   },
   {
     "ParameterKey": "p7_instance_project",
-    "ParameterValue": "mkultra"
+    "ParameterValue": "SED004"
   },
   {
     "ParameterKey": "slack_token",
-    "ParameterValue": ""
+    "ParameterValue": "SED005"
   },
   {
     "ParameterKey": "azure_storage_account_name",
-    "ParameterValue": ""
+    "ParameterValue": "SED006"
   },
   {
     "ParameterKey": "azure_storage_account_key",
-    "ParameterValue": ""
+    "ParameterValue": "SED007"
   },
   {
     "ParameterKey": "azure_devops_url",
-    "ParameterValue": ""
+    "ParameterValue": "SED017"
   },
   {
     "ParameterKey": "azure_devops_pat",
-    "ParameterValue": ""
+    "ParameterValue": "SED010"
   },
   {
     "ParameterKey": "nt_api_user",
-    "ParameterValue": ""
+    "ParameterValue": "SED008"
   },
   {
     "ParameterKey": "nt_api_password",
-    "ParameterValue": ""
+    "ParameterValue": "SED009"
   },
   {
     "ParameterKey": "nt_api_search_url",
-    "ParameterValue": ""
+    "ParameterValue": "SED021"
   },
   {
     "ParameterKey": "nt_api_login_url",
-    "ParameterValue": ""
+    "ParameterValue": "SED022"
   },
   {
     "ParameterKey": "sumo_endpoint",
-    "ParameterValue": ""
+    "ParameterValue": "SED011"
   },
   {
     "ParameterKey": "dynamodb_url",
-    "ParameterValue": "http://localhost:8001"
+    "ParameterValue": "SED012"
   },
   {
     "ParameterKey": "chatbotone_data_folder",
-    "ParameterValue": "./cb1data/"
+    "ParameterValue": "SED013"
   },
   {
     "ParameterKey": "dashboard_filename",
-    "ParameterValue": "p7.html"
+    "ParameterValue": "SED014"
   },
   {
     "ParameterKey": "advanced_dashboard_filename",
-    "ParameterValue": "p7adv.html"
+    "ParameterValue": "SED015"
   },
   {
     "ParameterKey": "dashboard_base_url",
-    "ParameterValue": ""
+    "ParameterValue": "SED016"
   },
   {
     "ParameterKey": "logs_folder",
-    "ParameterValue": "./log/"
+    "ParameterValue": "SED018"
   },
   {
     "ParameterKey": "log_filename",
-    "ParameterValue": "protocol7.log"
+    "ParameterValue": "SED019"
   },
   {
     "ParameterKey": "config_filename",
-    "ParameterValue": "p7_pantzumatic_test_config.py"
+    "ParameterValue": "SED020"
   },
   {
     "ParameterKey": "enable_blinkstick",
-    "ParameterValue": 0
+    "ParameterValue": "SED023"
   },
   {
     "ParameterKey": "enable_slack",
-    "ParameterValue": 0
+    "ParameterValue": "SED024"
   },
   {
     "ParameterKey": "enable_sumologic",
-    "ParameterValue": 0
+    "ParameterValue": "SED025"
   },
   {
     "ParameterKey": "enable_dashboard",
-    "ParameterValue": 0
+    "ParameterValue": "SED026"
   }
 ]

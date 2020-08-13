@@ -1,118 +1,118 @@
 [
   {
-    "ParameterKey": "stack_name",
+    "ParameterKey": "stack-name",
     "ParameterValue": "SED027"
   },
   {
-    "ParameterKey": "authorized_ip",
+    "ParameterKey": "authorized-ip",
     "ParameterValue": "SED028"
   },
   {
-    "ParameterKey": "hosted_zone_name",
+    "ParameterKey": "hosted-zone-name",
     "ParameterValue": "SED029"
   },
   {
-    "ParameterKey": "p7_instance_name",
+    "ParameterKey": "p7-instance-name",
     "ParameterValue": "SED001"
   },
   {
-    "ParameterKey": "p7_instance_client",
+    "ParameterKey": "p7-instance-client",
     "ParameterValue": "SED002"
   },
   {
-    "ParameterKey": "p7_instance_env",
+    "ParameterKey": "p7-instance-env",
     "ParameterValue": "SED003"
   },
   {
-    "ParameterKey": "p7_instance_project",
+    "ParameterKey": "p7-instance-project",
     "ParameterValue": "SED004"
   },
   {
-    "ParameterKey": "slack_token",
+    "ParameterKey": "slack-token",
     "ParameterValue": "SED005"
   },
   {
-    "ParameterKey": "azure_storage_account_name",
+    "ParameterKey": "azure-storage-account-name",
     "ParameterValue": "SED006"
   },
   {
-    "ParameterKey": "azure_storage_account_key",
+    "ParameterKey": "azure-storage-account-key",
     "ParameterValue": "SED007"
   },
   {
-    "ParameterKey": "azure_devops_url",
+    "ParameterKey": "azure-devops-url",
     "ParameterValue": "SED017"
   },
   {
-    "ParameterKey": "azure_devops_pat",
+    "ParameterKey": "azure-devops-pat",
     "ParameterValue": "SED010"
   },
   {
-    "ParameterKey": "nt_api_user",
+    "ParameterKey": "nt-api-user",
     "ParameterValue": "SED008"
   },
   {
-    "ParameterKey": "nt_api_password",
+    "ParameterKey": "nt-api-password",
     "ParameterValue": "SED009"
   },
   {
-    "ParameterKey": "nt_api_search_url",
+    "ParameterKey": "nt-api-search-url",
     "ParameterValue": "SED021"
   },
   {
-    "ParameterKey": "nt_api_login_url",
+    "ParameterKey": "nt-api-login-url",
     "ParameterValue": "SED022"
   },
   {
-    "ParameterKey": "sumo_endpoint",
+    "ParameterKey": "sumo-endpoint",
     "ParameterValue": "SED011"
   },
   {
-    "ParameterKey": "dynamodb_url",
+    "ParameterKey": "dynamodb-url",
     "ParameterValue": "SED012"
   },
   {
-    "ParameterKey": "chatbotone_data_folder",
+    "ParameterKey": "chatbotone-data-folder",
     "ParameterValue": "SED013"
   },
   {
-    "ParameterKey": "dashboard_filename",
+    "ParameterKey": "dashboard-filename",
     "ParameterValue": "SED014"
   },
   {
-    "ParameterKey": "advanced_dashboard_filename",
+    "ParameterKey": "advanced-dashboard-filename",
     "ParameterValue": "SED015"
   },
   {
-    "ParameterKey": "dashboard_base_url",
+    "ParameterKey": "dashboard-base-url",
     "ParameterValue": "SED016"
   },
   {
-    "ParameterKey": "logs_folder",
+    "ParameterKey": "logs-folder",
     "ParameterValue": "SED018"
   },
   {
-    "ParameterKey": "log_filename",
+    "ParameterKey": "log-filename",
     "ParameterValue": "SED019"
   },
   {
-    "ParameterKey": "config_filename",
+    "ParameterKey": "config-filename",
     "ParameterValue": "SED020"
   },
   {
-    "ParameterKey": "enable_blinkstick",
+    "ParameterKey": "enable-blinkstick",
     "ParameterValue": "SED023"
   },
   {
-    "ParameterKey": "enable_slack",
+    "ParameterKey": "enable-slack",
     "ParameterValue": "SED024"
   },
   {
-    "ParameterKey": "enable_sumologic",
+    "ParameterKey": "enable-sumologic",
     "ParameterValue": "SED025"
   },
   {
-    "ParameterKey": "enable_dashboard",
+    "ParameterKey": "enable-dashboard",
     "ParameterValue": "SED026"
   }
 ]

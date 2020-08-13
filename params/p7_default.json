@@ -1,7 +1,7 @@
 [
   {
     "ParameterKey": "stack_name",
-    "ParameterValue":"SED027"
+    "ParameterValue": "SED027"
   },
   {
     "ParameterKey": "authorized_ip",

@@ -255,7 +255,7 @@
       "Metadata": {
         "AWS::CloudFormation::Init": {
           "configSets": {
-            "FullProtocol7": ["AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup","DDBInstall","DDBStart","P7Install","P7Configure"]
+            "FullProtocol7": ["AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup","DDBInstall","DDBStart","P7Install","P7Dependencies","P7Configure","Persona7Install"]
           },
           "AddYumRepositories": {
             "commands": {
@@ -360,6 +360,19 @@
               }
             }
           },
+          "P7Dependencies": {
+            "commands": {
+              "install_pip_modules": {
+                "command": {
+                  "Fn::Join": [
+                    "", [
+                      "pip-3.6 install cozmo exchangelib slackclient blinkstick sklearn pandas nltk joblib argparse boto3 colorama notify2 azure-storage-blob azure-mgmt-compute azure-mgmt-storage azure-mgmt-resource azure-keyvault-secrets azure-storage-blob requests_toolbelt requests azure-devops msrest;"
+                    ]
+                  ]
+                }
+              }
+            }
+          },
           "P7Configure": {
             "files": {
               "/tmp/.cfn-init-was-there": {
@@ -390,6 +403,35 @@
                       "touch /home/ec2-user/all_clear;",
                       "touch /home/ec2-user/cloudformation/all_clear;",
                       "touch /home/ec2-user/cloudformation/all_clear2;"
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "Persona7Install": {
+            "commands": {
+              "install_persona7": {
+                "command": {
+                  "Fn::Join": [
+                    "", [
+                      "echo 'Installing Persona/7...';",
+                      "cd /home/ec2-user/;",
+                      "git clone https://github.com/TME520/persona7.git;",
+                      "chown -R ec2-user:ec2-user ./persona7/;"
+                    ]
+                  ]
+                }
+              },
+              "configure_persona7": {
+                "command": {
+                  "Fn::Join": [
+                    "", [
+                      "echo 'Configuring Persona/7...';",
+                      "cd /home/ec2-user/persona7/;",
+                      "cp -pv ./startTemplate.sh.template ./startPersona7.sh;",
+                      "chmod +x ./startPersona7.sh;",
+                      "sed -i 's/SED001/", { "Ref": "SlackToken"}, "/g' ./persona7/startPersona7.sh"
                     ]
                   ]
                 }

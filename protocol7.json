@@ -422,7 +422,11 @@
                     ]
                   ]
                 }
-              },
+              }
+            }
+          },
+          "Persona7Configure": {
+            "commands": {
               "configure_persona7": {
                 "command": {
                   "Fn::Join": [

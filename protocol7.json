@@ -255,7 +255,7 @@
       "Metadata": {
         "AWS::CloudFormation::Init": {
           "configSets": {
-            "FullProtocol7": ["AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup","DDBInstall","DDBStart","P7Install","P7Dependencies","P7Configure","Persona7Install","Persona7Configure","StartPersona7"]
+            "FullProtocol7": ["AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup","DDBInstall","DDBStart","P7Install","P7Dependencies","P7Configure","StartProtocol7","Persona7Install","Persona7Configure","StartPersona7"]
           },
           "AddYumRepositories": {
             "commands": {
@@ -424,9 +424,49 @@
                   "Fn::Join": [
                     "", [
                       "echo 'Configuring Protocol/7...';",
-                      "touch /home/ec2-user/all_clear;",
-                      "touch /home/ec2-user/protocol7/all_clear;",
-                      "touch /home/ec2-user/protocol7/all_clear2;"
+                      "cd /home/ec2-user/protocol7/;",
+                      "cp -pv ./startTemplate.sh.template ./startProtocol7.sh;",
+                      "chmod +x ./startProtocol7.sh;",
+                      "sed -i 's/SED001/", { "Ref": "P7InstanceName"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED002/", { "Ref": "P7InstanceClient"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED003/", { "Ref": "P7InstanceEnv"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED004/", { "Ref": "P7InstanceProject"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED005/", { "Ref": "SlackToken"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED006/", { "Ref": "AzureStorageAccountName"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED007/", { "Ref": "AzureStorageAccountKey"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED008/", { "Ref": "NtApiUser"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED009/", { "Ref": "NtApiPassword"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED010/", { "Ref": "AzureDevopsPat"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's,SED011,", { "Ref": "SumoEndpoint"}, ",g' ./startProtocol7.sh;",
+                      "sed -i 's,SED012,http://", { "Ref": "SED012"}, ",g' ./startProtocol7.sh;",
+                      "sed -i 's,SED013,", { "Ref": "ChatbotoneDataFolder"}, ",g' ./startProtocol7.sh;",
+                      "sed -i 's/SED014/", { "Ref": "DashboardFilename"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED015/", { "Ref": "AdvancedDashboardFilename"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED016/", { "Ref": "DashboardBaseUrl"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED017/", { "Ref": "AzureDevopsUrl"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's,SED018,", { "Ref": "LogsFolder"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED019/", { "Ref": "LogFilename"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED020/", { "Ref": "ConfigFilename"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED021/", { "Ref": "NtApiSearchUrl"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED022/", { "Ref": "NtApiLoginUrl"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED023/", { "Ref": "EnableBlinkstick"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED024/", { "Ref": "EnableSlack"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED025/", { "Ref": "EnableSumologic"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED026/", { "Ref": "EnableDashboard"}, "/g' ./startProtocol7.sh;"
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "StartProtocol7": {
+            "commands": {
+              "start_persona7": {
+                "command": {
+                  "Fn::Join": [
+                    "", [
+                      "cd /home/ec2-user/protocol7/;",
+                      "nohup ./startProtocol7.sh > foo.out 2> foo.err < /dev/null &"
                     ]
                   ]
                 }

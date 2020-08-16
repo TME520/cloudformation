@@ -438,7 +438,7 @@
                       "sed -i 's/SED009/", { "Ref": "NtApiPassword"}, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED010/", { "Ref": "AzureDevopsPat"}, "/g' ./startProtocol7.sh;",
                       "sed -i 's,SED011,", { "Ref": "SumoEndpoint"}, ",g' ./startProtocol7.sh;",
-                      "sed -i 's,SED012,http://", { "Ref": "SED012"}, ",g' ./startProtocol7.sh;",
+                      "sed -i 's,SED012,http://", { "Ref": "DynamodbUrl"}, ",g' ./startProtocol7.sh;",
                       "sed -i 's,SED013,", { "Ref": "ChatbotoneDataFolder"}, ",g' ./startProtocol7.sh;",
                       "sed -i 's/SED014/", { "Ref": "DashboardFilename"}, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED015/", { "Ref": "AdvancedDashboardFilename"}, "/g' ./startProtocol7.sh;",

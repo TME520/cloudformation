@@ -599,7 +599,7 @@
       "Type": "AWS::S3::Bucket",
       "DeletionPolicy": "Delete",
       "Properties": {
-        "BucketName": { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
+        "BucketName": { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "DashboardBaseUrl" } ] ] },
         "AccessControl": "PublicRead",
         "WebsiteConfiguration": {
           "ErrorDocument": "error.html",

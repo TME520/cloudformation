@@ -569,25 +569,57 @@
         ]
       }
     },
-    "myDNSRecord" : {
-      "Type" : "AWS::Route53::RecordSet",
-      "Properties" : {
+    "myDNSRecord": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
         "HostedZoneName": { "Ref": "HostedZoneName" },
-        "Comment": "DNS name for my instance",
-        "Name" : { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
-        "TTL" : 900,
-        "Type" : "CNAME",
+        "Comment": "DNS name for the EC2 instance running Jenkins and P7",
+        "Name": { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
+        "TTL": 900,
+        "Type": "CNAME",
         "ResourceRecords": [
           { "Fn::GetAtt": [ "EC2Instance", "PublicIp" ] }
         ]
       }
     },
-    "S3Bucket" : {
-      "Type" : "AWS::S3::Bucket",
+    "myDNSRecord2": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "HostedZoneName": { "Ref": "HostedZoneName" },
+        "Comment": "DNS name for the S3 bucket hosting P7 dashboard",
+        "Name": { "Fn::Join": [ "", [ "", { "Ref": "P7InstanceName"}, ".", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
+        "TTL": 900,
+        "Type": "CNAME",
+        "ResourceRecords": [
+          { "Fn::GetAtt": [ "S3Bucket", "WebsiteURL" ] }
+        ]
+      }
+    },
+    "S3Bucket": {
+      "Type": "AWS::S3::Bucket",
       "DeletionPolicy": "Delete",
-      "Properties" : {
-        "BucketName" : { "Ref": "AWS::StackName" }
+      "Properties": {
+        "BucketName": { "Ref": "AWS::StackName" },
+        "AccessControl": "PublicRead",
+        "WebsiteConfiguration": {
+          "ErrorDocument": "error.html",
+          "IndexDocument": { "Ref": "DashboardFilename"}
+        }
       }  
+    },
+    "S3BucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": { "Ref": "S3Bucket" },
+        "PolicyDocument": {
+          "Statement": {
+            "Effect": "Allow",
+            "Action": [ "s3:GetObject" ],
+            "Principal": "*",
+            "Resource": { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "S3Bucket" } , "/*" ]]}
+          }
+        }
+      }
     }
   },
   "Outputs": {

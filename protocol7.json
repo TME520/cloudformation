@@ -184,6 +184,14 @@
         "HVM64": "ami-dc361ebf",
         "HVMG2": "ami-0ad2db69"
       }
+    },
+    "TrueOrFalseIndexMap": {
+      "false": {
+        "state": "0"
+      },
+      "true": {
+        "state": "1"
+      }
     }
   },
   "Resources": {
@@ -406,10 +414,10 @@
                       "Logs folder: ", { "Ref": "LogsFolder" }, "\n",
                       "Log filename: ", { "Ref": "LogFilename" }, "\n",
                       "Config filename: ", { "Ref": "ConfigFilename" }, "\n",
-                      "Blinkstick enabled: ", { "Ref": "EnableBlinkstick" }, "\n",
-                      "Slack messages enabled: ", { "Ref": "EnableSlack" }, "\n",
-                      "Send logs to Sumologic: ", { "Ref": "EnableSumologic" }, "\n",
-                      "Enable dashboard: ", { "Ref": "EnableDashboard" }, "\n"
+                      "Blinkstick enabled: ", { "Ref": "EnableBlinkstick" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableBlinkstick" }, "state" ] }, ")","\n",
+                      "Slack messages enabled: ", { "Ref": "EnableSlack" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableSlack" }, "state" ] }, ")","\n",
+                      "Send logs to Sumologic: ", { "Ref": "EnableSumologic" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableSumologic" }, "state" ] }, ")","\n",
+                      "Enable dashboard: ", { "Ref": "EnableDashboard" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableDashboard" }, "state" ] }, ")", "\n"
                     ]
                   ]
                 },
@@ -449,10 +457,10 @@
                       "sed -i 's/SED020/", { "Ref": "ConfigFilename"}, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED021/", { "Ref": "NtApiSearchUrl"}, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED022/", { "Ref": "NtApiLoginUrl"}, "/g' ./startProtocol7.sh;",
-                      "sed -i 's/SED023/", { "Ref": "EnableBlinkstick"}, "/g' ./startProtocol7.sh;",
-                      "sed -i 's/SED024/", { "Ref": "EnableSlack"}, "/g' ./startProtocol7.sh;",
-                      "sed -i 's/SED025/", { "Ref": "EnableSumologic"}, "/g' ./startProtocol7.sh;",
-                      "sed -i 's/SED026/", { "Ref": "EnableDashboard"}, "/g' ./startProtocol7.sh;"
+                      "sed -i 's/SED023/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableBlinkstick" }, "state" ] }, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED024/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableSlack" }, "state" ] }, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED025/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableSumologic" }, "state" ] }, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED026/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableDashboard" }, "state" ] }, "/g' ./startProtocol7.sh;"
                     ]
                   ]
                 }

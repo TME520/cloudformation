@@ -587,7 +587,7 @@
       "Properties": {
         "HostedZoneName": { "Ref": "HostedZoneName" },
         "Comment": "DNS name for the S3 bucket hosting P7 dashboard",
-        "Name": { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
+        "Name": { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "DashboardBaseUrl" } ] ] },
         "TTL": 300,
         "Type": "CNAME",
         "ResourceRecords": [

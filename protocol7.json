@@ -574,7 +574,7 @@
       "Properties": {
         "HostedZoneName": { "Ref": "HostedZoneName" },
         "Comment": "DNS name for the EC2 instance running Jenkins and P7",
-        "Name": { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
+        "Name": { "Fn::Join": [ "", [ "", "jenkins", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
         "TTL": 900,
         "Type": "CNAME",
         "ResourceRecords": [
@@ -587,7 +587,7 @@
       "Properties": {
         "HostedZoneName": { "Ref": "HostedZoneName" },
         "Comment": "DNS name for the S3 bucket hosting P7 dashboard",
-        "Name": { "Fn::Join": [ "", [ "", { "Ref": "P7InstanceName"}, ".", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
+        "Name": { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
         "TTL": 900,
         "Type": "CNAME",
         "ResourceRecords": [

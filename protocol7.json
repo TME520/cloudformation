@@ -574,7 +574,7 @@
       "Properties": {
         "HostedZoneName": { "Ref": "HostedZoneName" },
         "Comment": "DNS name for the EC2 instance running Jenkins and P7",
-        "Name": { "Fn::Join": [ "", [ "", "jenkins", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
+        "Name": { "Fn::Join": [ "", [ "", "jenkins", ".", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
         "TTL": 900,
         "Type": "CNAME",
         "ResourceRecords": [

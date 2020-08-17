@@ -575,7 +575,7 @@
         "HostedZoneName": { "Ref": "HostedZoneName" },
         "Comment": "DNS name for the EC2 instance running Jenkins and P7",
         "Name": { "Fn::Join": [ "", [ "", "jenkins", ".", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
-        "TTL": 900,
+        "TTL": 300,
         "Type": "CNAME",
         "ResourceRecords": [
           { "Fn::GetAtt": [ "EC2Instance", "PublicIp" ] }
@@ -588,10 +588,10 @@
         "HostedZoneName": { "Ref": "HostedZoneName" },
         "Comment": "DNS name for the S3 bucket hosting P7 dashboard",
         "Name": { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ] },
-        "TTL": 900,
+        "TTL": 300,
         "Type": "CNAME",
         "ResourceRecords": [
-          { "Fn::GetAtt": [ "S3Bucket", "WebsiteURL" ] }
+          { "Fn::Select" : [ 1, { "Fn::Split" : [ "//",  { "Fn::GetAtt": [ "S3Bucket", "WebsiteURL" ] } ] } ] }
         ]
       }
     },
@@ -677,7 +677,13 @@
     "JenkinsURL": {
       "Description": "The URL you have to open in order to use Jenkins.",
       "Value": {
-        "Fn::Join": [ "", [ "", "http://", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" }, ":8080" ] ]
+        "Fn::Join": [ "", [ "", "http://", "jenkins", ".", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" }, ":8080" ] ]
+      }
+    },
+    "DashboardURL": {
+      "Description": "URL pointing to the dashboard generated and maintained by Protocol/7",
+      "Value": {
+        "Fn::Join": [ "", [ "", "http://", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ]
       }
     }
   }

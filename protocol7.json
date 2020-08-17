@@ -581,7 +581,14 @@
           { "Fn::GetAtt": [ "EC2Instance", "PublicIp" ] }
         ]
       }
-   }
+    },
+    "S3Bucket" : {
+      "Type" : "AWS::S3::Bucket",
+      "DeletionPolicy": "Delete",
+      "Properties" : {
+        "BucketName" : { "Ref": "AWS::StackName" }
+      }  
+    }
   },
   "Outputs": {
     "InstanceId": {

@@ -444,7 +444,7 @@
                       "sed -i 's/SED015/", { "Ref": "AdvancedDashboardFilename"}, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED016/", { "Ref": "DashboardBaseUrl"}, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED017/", { "Ref": "AzureDevopsUrl"}, "/g' ./startProtocol7.sh;",
-                      "sed -i 's,SED018,", { "Ref": "LogsFolder"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's,SED018,", { "Ref": "LogsFolder"}, ",g' ./startProtocol7.sh;",
                       "sed -i 's/SED019/", { "Ref": "LogFilename"}, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED020/", { "Ref": "ConfigFilename"}, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED021/", { "Ref": "NtApiSearchUrl"}, "/g' ./startProtocol7.sh;",

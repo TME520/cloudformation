@@ -263,7 +263,26 @@
       "Metadata": {
         "AWS::CloudFormation::Init": {
           "configSets": {
-            "FullProtocol7": ["AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup","DDBInstall","DDBStart","P7Install","P7Dependencies","P7Configure","StartProtocol7","Persona7Install","Persona7Configure","StartPersona7"]
+            "FullProtocol7": ["SetTZ", "AddYumRepositories","YumUpgrade","BasicSetup","JenkinsWeeklySetup","DDBInstall","DDBStart","P7Install","P7Dependencies","P7Configure","StartProtocol7","Persona7Install","Persona7Configure","StartPersona7"]
+          },
+          "SetTZ": {
+            "files": {
+              "/etc/sysconfig/clock": {
+                "content": {
+                  "Fn::Join": [
+                    "", [
+                      "ZONE=\"Australia/Melbourne\"\n",
+                      "UTC=true"
+                    ]
+                  ]
+                }
+              }
+            },
+            "commands": {
+              "set_timezone": {
+                "command": "echo 'Setting timezone to Australia/Melbourne...' && ln -sf /usr/share/zoneinfo/Australia/Melbourne /etc/localtime"
+              }
+            }
           },
           "AddYumRepositories": {
             "commands": {
@@ -292,7 +311,7 @@
             "files": {
               "/home/ec2-user/.cfn-init-run-check": {
                 "content": {
-                  "Fn::Join" : [
+                  "Fn::Join": [
                     "", [
                       "[general]\n",
                       "Stack: ", { "Ref": "AWS::StackName" }, "\n",

@@ -165,6 +165,16 @@
       "Description": "Let Protocol/7 generate a dashboard (2 HTML files hosted somewhere).",
       "Type": "String",
       "Default": ""
+    },
+    "StoreDashAzure": {
+      "Description": "Tell Protocol/7 to store its dashboard on an Azure Blob Storage instance.",
+      "Type": "String",
+      "Default": ""
+    },
+    "StoreDashAWS": {
+      "Description": "Tell Protocol/7 to store its dashboard on a AWS S3 bucket.",
+      "Type": "String",
+      "Default": ""
     }
   },
   "Mappings": {

@@ -479,7 +479,10 @@
                       "sed -i 's/SED023/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableBlinkstick" }, "state" ] }, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED024/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableSlack" }, "state" ] }, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED025/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableSumologic" }, "state" ] }, "/g' ./startProtocol7.sh;",
-                      "sed -i 's/SED026/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableDashboard" }, "state" ] }, "/g' ./startProtocol7.sh;"
+                      "sed -i 's/SED026/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableDashboard" }, "state" ] }, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED030/", { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "DashboardBaseUrl" } ] ] }, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED031/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "StoreDashAzure" }, "state" ] }, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED032/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "StoreDashAWS" }, "state" ] }, "/g' ./startProtocol7.sh;"
                     ]
                   ]
                 }

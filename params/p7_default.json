@@ -114,5 +114,17 @@
   {
     "ParameterKey": "EnableDashboard",
     "ParameterValue": "SED026"
+  },
+  {
+    "ParameterKey": "S3BucketName",
+    "ParameterValue": "SED030"
+  },
+  {
+    "ParameterKey": "StoreDashAzure",
+    "ParameterValue": "SED031"
+  },
+  {
+    "ParameterKey": "StoreDashAWS",
+    "ParameterValue": "SED032"
   }
 ]

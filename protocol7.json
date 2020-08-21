@@ -468,7 +468,8 @@
                       "Send logs to Sumologic: ", { "Ref": "EnableSumologic" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableSumologic" }, "state" ] }, ")","\n",
                       "Enable dashboard: ", { "Ref": "EnableDashboard" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableDashboard" }, "state" ] }, ")", "\n",
                       "Store dashboard in Azure: ", { "Ref": "StoreDashAzure" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "StoreDashAzure" }, "state" ] }, ")","\n",
-                      "Store dashboard in AWS: ", { "Ref": "StoreDashAWS" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "StoreDashAWS" }, "state" ] }, ")", "\n"
+                      "Store dashboard in AWS: ", { "Ref": "StoreDashAWS" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "StoreDashAWS" }, "state" ] }, ")", "\n",
+                      "AWS access key ID: ", { "Ref": "AWSSecretKeyID" }, "\n"
                     ]
                   ]
                 },

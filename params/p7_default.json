@@ -126,5 +126,17 @@
   {
     "ParameterKey": "StoreDashAWS",
     "ParameterValue": "SED032"
+  },
+  {
+    "ParameterKey": "AWSSecretKeyID",
+    "ParameterValue": "SED033"
+  },
+  {
+    "ParameterKey": "AWSSecretAccessKey",
+    "ParameterValue": "SED034"
+  },
+  {
+    "ParameterKey": "AWSRegion",
+    "ParameterValue": "SED035"
   }
 ]

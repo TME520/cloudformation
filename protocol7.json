@@ -180,6 +180,21 @@
       "Description": "Name of the S3 bucket hosting the dashboard.",
       "Type": "String",
       "Default": ""
+    },
+    "AWSSecretKeyID": {
+      "Description": "AWS secret access key ID.",
+      "Type": "String",
+      "Default": ""
+    },
+    "AWSSecretAccessKey": {
+      "Description": "AWS secret access key.",
+      "Type": "String",
+      "Default": ""
+    },
+    "AWSRegion": {
+      "Description": "AWS region in which the stack will be created.",
+      "Type": "String",
+      "Default": ""
     }
   },
   "Mappings": {
@@ -451,7 +466,9 @@
                       "Blinkstick enabled: ", { "Ref": "EnableBlinkstick" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableBlinkstick" }, "state" ] }, ")","\n",
                       "Slack messages enabled: ", { "Ref": "EnableSlack" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableSlack" }, "state" ] }, ")","\n",
                       "Send logs to Sumologic: ", { "Ref": "EnableSumologic" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableSumologic" }, "state" ] }, ")","\n",
-                      "Enable dashboard: ", { "Ref": "EnableDashboard" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableDashboard" }, "state" ] }, ")", "\n"
+                      "Enable dashboard: ", { "Ref": "EnableDashboard" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableDashboard" }, "state" ] }, ")", "\n",
+                      "Store dashboard in Azure: ", { "Ref": "StoreDashAzure" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "StoreDashAzure" }, "state" ] }, ")","\n",
+                      "Store dashboard in AWS: ", { "Ref": "StoreDashAWS" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "StoreDashAWS" }, "state" ] }, ")", "\n"
                     ]
                   ]
                 },
@@ -497,7 +514,10 @@
                       "sed -i 's/SED026/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableDashboard" }, "state" ] }, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED030/", { "Fn::Join": [ "", [ "", { "Ref": "AWS::StackName" }, ".", { "Ref": "DashboardBaseUrl" } ] ] }, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED031/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "StoreDashAzure" }, "state" ] }, "/g' ./startProtocol7.sh;",
-                      "sed -i 's/SED032/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "StoreDashAWS" }, "state" ] }, "/g' ./startProtocol7.sh;"
+                      "sed -i 's/SED032/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "StoreDashAWS" }, "state" ] }, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED033/", { "Ref": "AWSSecretKeyID"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED034/", { "Ref": "AWSSecretAccessKey"}, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED035/", { "Ref": "AWSRegion"}, "/g' ./startProtocol7.sh;"
                     ]
                   ]
                 }

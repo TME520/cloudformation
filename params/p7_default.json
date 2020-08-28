@@ -100,8 +100,12 @@
     "ParameterValue": "SED020"
   },
   {
-    "ParameterKey": "EnableBlinkstick",
+    "ParameterKey": "EnableLocalBlinkstick",
     "ParameterValue": "SED023"
+  },
+  {
+    "ParameterKey": "EnableRemoteBlinkstick",
+    "ParameterValue": "SED036"
   },
   {
     "ParameterKey": "EnableSlack",

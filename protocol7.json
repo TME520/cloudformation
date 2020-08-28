@@ -463,7 +463,8 @@
                       "Logs folder: ", { "Ref": "LogsFolder" }, "\n",
                       "Log filename: ", { "Ref": "LogFilename" }, "\n",
                       "Config filename: ", { "Ref": "ConfigFilename" }, "\n",
-                      "Blinkstick enabled: ", { "Ref": "EnableBlinkstick" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableBlinkstick" }, "state" ] }, ")","\n",
+                      "Local Blinkstick enabled: ", { "Ref": "EnableLocalBlinkstick" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableLocalBlinkstick" }, "state" ] }, ")","\n",
+                      "Remote Blinkstick enabled: ", { "Ref": "EnableRemoteBlinkstick" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableRemoteBlinkstick" }, "state" ] }, ")","\n",
                       "Slack messages enabled: ", { "Ref": "EnableSlack" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableSlack" }, "state" ] }, ")","\n",
                       "Send logs to Sumologic: ", { "Ref": "EnableSumologic" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableSumologic" }, "state" ] }, ")","\n",
                       "Enable dashboard: ", { "Ref": "EnableDashboard" }, "(", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableDashboard" }, "state" ] }, ")", "\n",
@@ -509,7 +510,8 @@
                       "sed -i 's/SED020/", { "Ref": "ConfigFilename"}, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED021/", { "Ref": "NtApiSearchUrl"}, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED022/", { "Ref": "NtApiLoginUrl"}, "/g' ./startProtocol7.sh;",
-                      "sed -i 's/SED023/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableBlinkstick" }, "state" ] }, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED023/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableLocalBlinkstick" }, "state" ] }, "/g' ./startProtocol7.sh;",
+                      "sed -i 's/SED036/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableRemoteBlinkstick" }, "state" ] }, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED024/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableSlack" }, "state" ] }, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED025/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableSumologic" }, "state" ] }, "/g' ./startProtocol7.sh;",
                       "sed -i 's/SED026/", { "Fn::FindInMap" : [ "TrueOrFalseIndexMap", { "Ref": "EnableDashboard" }, "state" ] }, "/g' ./startProtocol7.sh;",
@@ -763,6 +765,12 @@
       "Description": "URL pointing to the dashboard generated and maintained by Protocol/7",
       "Value": {
         "Fn::Join": [ "", [ "", "http://", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ]
+      }
+    },
+    "Enabled features": {
+      "Description": "A list of the Protocol/7 features that have been enabled on this stack.",
+      "Value": {
+        "Fn::Join": [ "", [ "", "Local BlinkStick: ", { "Ref": "EnableLocalBlinkstick" }, " - Remote BlinkStick: ", { "Ref": "EnableRemoteBlinkstick" }, " - Slack messages: ", { "Ref": "EnableSlack" }, " - Send logs to Sumologic: ", { "Ref": "EnableSumologic" }, " - Generate monitoring dashboard: ", { "Ref": "EnableDashboard" }, " - Store dashboard files in Azure: ", { "Ref": "StoreDashAzure" }, " - Store dashboard files in AWS: ", { "Ref": "StoreDashAWS" } ] ]
       }
     }
   }

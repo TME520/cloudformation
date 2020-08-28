@@ -726,12 +726,7 @@
     },
     "PublicDNS": {
       "Description": "Public DNSName of the newly created EC2 instance",
-      "Value": {
-        "Fn::GetAtt": [
-          "EC2Instance",
-          "PublicDnsName"
-        ]
-      }
+      "Value": { "Fn::GetAtt": [ "EC2Instance", "PublicDnsName" ] }
     },
     "PublicIP": {
       "Description": "Public IP address of the newly created EC2 instance",
@@ -781,7 +776,7 @@
     "BlinkStickConfigParameters": {
       "Description": "The config info you need to get your local BlinkStick to work.",
       "Value": {
-        "Fn::Join": [ "", [ "", "Database URL: ", { "Ref": "DynamodbUrl"}, " - Protocol/7 instance identifier: ", { "Ref": "P7InstanceName"}, "##", { "Ref": "P7InstanceClient"}, "##", { "Ref": "P7InstanceProject"}, "##", { "Ref": "P7InstanceEnv"} ] ]
+        "Fn::Join": [ "", [ "", "Database URL: http://", { "Fn::GetAtt": [ "EC2Instance", "PublicDnsName" ] }, ":8001 - Protocol/7 instance identifier: ", { "Ref": "P7InstanceName"}, "##", { "Ref": "P7InstanceClient"}, "##", { "Ref": "P7InstanceProject"}, "##", { "Ref": "P7InstanceEnv"} ] ]
       }
     }
   }

@@ -777,6 +777,12 @@
       "Value": {
         "Fn::Join": [ "", [ "", "Local BlinkStick: ", { "Ref": "EnableLocalBlinkstick" }, " - Remote BlinkStick: ", { "Ref": "EnableRemoteBlinkstick" }, " - Slack messages: ", { "Ref": "EnableSlack" }, " - Send logs to Sumologic: ", { "Ref": "EnableSumologic" }, " - Generate monitoring dashboard: ", { "Ref": "EnableDashboard" }, " - Store dashboard files in Azure: ", { "Ref": "StoreDashAzure" }, " - Store dashboard files in AWS: ", { "Ref": "StoreDashAWS" } ] ]
       }
+    },
+    "BlinkStickConfigParameters": {
+      "Description": "The config info you need to get your local BlinkStick to work.",
+      "Value": {
+        "Fn::Join": [ "", [ "", "Database URL: ", { "Ref": "DynamodbUrl"}, " - Protocol/7 instance identifier: ", { "Ref": "P7InstanceName"}, "##", { "Ref": "P7InstanceClient"}, "##", { "Ref": "P7InstanceProject"}, "##", { "Ref": "P7InstanceEnv"} ] ]
+      }
     }
   }
 }

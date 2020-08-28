@@ -146,8 +146,13 @@
       "Type": "String",
       "Default": ""
     },
-    "EnableBlinkstick": {
+    "EnableLocalBlinkstick": {
       "Description": "Enable Blinkstick usage (not recommended unless you run Protocol/7 locally).",
+      "Type": "String",
+      "Default": ""
+    },
+    "EnableRemoteBlinkstick": {
+      "Description": "Enable Blinkstick usage remotely. The Protocol/7 main server will be sending instructions to your local USB RGB BlinkStick.",
       "Type": "String",
       "Default": ""
     },
@@ -767,7 +772,7 @@
         "Fn::Join": [ "", [ "", "http://", { "Ref": "AWS::StackName" }, ".", { "Ref": "HostedZoneName" } ] ]
       }
     },
-    "Enabled features": {
+    "EnabledFeatures": {
       "Description": "A list of the Protocol/7 features that have been enabled on this stack.",
       "Value": {
         "Fn::Join": [ "", [ "", "Local BlinkStick: ", { "Ref": "EnableLocalBlinkstick" }, " - Remote BlinkStick: ", { "Ref": "EnableRemoteBlinkstick" }, " - Slack messages: ", { "Ref": "EnableSlack" }, " - Send logs to Sumologic: ", { "Ref": "EnableSumologic" }, " - Generate monitoring dashboard: ", { "Ref": "EnableDashboard" }, " - Store dashboard files in Azure: ", { "Ref": "StoreDashAzure" }, " - Store dashboard files in AWS: ", { "Ref": "StoreDashAWS" } ] ]

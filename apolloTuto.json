@@ -203,7 +203,7 @@
                       "echo 'Cloning Apollo tutorial...';",
                       "cd /home/ec2-user/;",
                       "git clone https://github.com/apollographql/fullstack-tutorial.git;",
-                      "chown -R ec2-user:ec2-user ./protocol7/;"
+                      "chown -R ec2-user:ec2-user ./fullstack-tutorial/;"
                     ]
                   ]
                 }

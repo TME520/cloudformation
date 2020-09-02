@@ -162,6 +162,11 @@
                 "git": [],
                 "nodejs": []
               }
+            },
+            "commands": {
+              "yum_install_group_devtools": {
+                "command": "yum groupinstall 'Development Tools'"
+              }
             }
           },
           "DDBInstall": {
@@ -217,7 +222,9 @@
                   "Fn::Join": [
                     "", [
                       "cd /home/ec2-user/fullstack-tutorial/start/server/;",
-                      "npm install"
+                      "npm install;",
+                      "npm install sqlite3 --save;",
+                      "npm install sequelize --save"
                     ]
                   ]
                 }

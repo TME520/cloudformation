@@ -165,7 +165,7 @@
             },
             "commands": {
               "yum_install_group_devtools": {
-                "command": "yum groupinstall 'Development Tools'"
+                "command": "yum groupinstall -y 'Development Tools'"
               }
             }
           },

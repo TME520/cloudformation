@@ -40,6 +40,10 @@
     "ParameterValue": "SED007"
   },
   {
+    "ParameterKey": "AzureStorageConnectionString",
+    "ParameterValue": "SED037"
+  },
+  {
     "ParameterKey": "AzureDevopsUrl",
     "ParameterValue": "SED017"
   },

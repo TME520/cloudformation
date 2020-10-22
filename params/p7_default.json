@@ -146,5 +146,13 @@
   {
     "ParameterKey": "AWSRegion",
     "ParameterValue": "SED035"
+  },
+  {
+    "ParameterKey": "EnableMSTeams",
+    "ParameterValue": "SED038"
+  },
+  {
+    "ParameterKey": "MSTeamsWebhook",
+    "ParameterValue": "SED039"
   }
 ]
